@@ -7,8 +7,13 @@
         <div class="title-bar">
             <div class="title-text">TSOHA-Forum</div>
             <div class="login-area">
-                <div class="login-area__name">Uloskirjauduttu</div>
-                <a href="#" class="button login-area__button">Kirjaudu sisään</a>
+                {% if session.username %}
+                    <div class="login-area__name">Kirjauduttu sisään nimellä <b>{{ session.username }}</b></div>
+                    <a href="/logout" class="button login-area__button">Kirjaudu ulos</a>
+                {% else %}
+                    <div class="login-area__name">Uloskirjauduttu</div>
+                    <a href="/login" class="button login-area__button">Kirjaudu sisään</a>
+                {% endif %}
             </div>
         </div>
         <div class="content">
