@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Kirjaudu sisään{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link href="{{ url_for('static', filename='styles/login.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+<div class="app">
+    <div class="main-container">
+        <div class="nav-bar"><a href="/" class="link">Koti</a><span>/</span><span>Kirjaudu sisään</span></div>
+        <div class="title-bar">
+            <div class="title-text">Kirjaudu sisään</div>
+        </div>
+        <div class="content">
+            <form action="/login-submit" method="POST" class="login-form">
+                <div class="login-form-item">
+                    <div class="login-form-title">Tunnus</div>
+                    <input type="text" name="username" required>
+                </div>
+                <div class="login-form-item">
+                    <div class="login-form-title">Salasana</div>
+                    <input type="password" name="password" required>
+                </div>
+                <input type="submit" value="Kirjaudu sisään" class="button login-area__button login-form-button">
+        </div>
+    </div>
+</div>
+{% endblock %}
