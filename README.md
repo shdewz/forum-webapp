@@ -7,7 +7,7 @@ Sovelluksessa näkyy eri aiheisia keskustelualueita, sisältäen viesteistä koo
 ## Ominaisuudet
 
 - [ ] Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen
-- [x] Käyttäjä näkee sovelluksen etusivulla listan alueista sekä jokaisen alueen ketjujen ja viestien määrän ja viimeksi lähetetyn viestin ajankohdan
+- [x] Käyttäjä näkee sovelluksen etusivulla listan alueista sekä jokaisen alueen ja ketjun viimeksi lähetetyn viestin ajankohdan
 - [x] Käyttäjä voi selata alueita ja ketjuja
 - [ ] Käyttäjä voi luoda alueelle uuden ketjun antamalla ketjun otsikon ja aloitusviestin sisällön
 - [ ] Käyttäjä voi kirjoittaa uuden viestin olemassa olevaan ketjuun
