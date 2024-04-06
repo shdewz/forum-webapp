@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --accent: #6495ed;
+    --accent-hover: #7aa6f8;
+    --foreground: #2e3338;
+    --foreground-hover: #353841;
+    --section-background: #22252a;
+    --background: #17191c;
+    --title-text: #fcfcfc;
+    --body-text: #dbe4f0;
+    --faded-text: #bfc7d8;
+    --link-text: #a6b7d9;
+    --original-poster: #64ed82;
+}
+
+a {
+    text-decoration: none;
+    color: var(--body-text);
+}
+
+.link {
+    color: var(--link-text);
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Sans', 'Helvetica', 'Arial', sans-serif;
+    background-color: var(--background);
+    color: var(--body-text);
+}
+
+.button {
+    font-weight: bold;
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 100px;
+    padding: 0.3rem 0.9rem;
+    height: 1.2rem;
+    transition: 100ms ease;
+}
+
+.button:hover {
+    background-color: var(--accent-hover);
+    color: var(--title-text);
+}
+
+.main-container {
+    width: 70em;
+}
+
+.title-bar {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    background-color: var(--section-background);
+    margin: 0;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-bar {
+    font-size: 0.8rem;
+    background-color: var(--foreground);
+    margin: 0;
+    padding: 16px;
+    display: flex;
+    gap: 8px;
+}
+
+.nav-bar a {
+    color: var(--link-text);
+}
+
+.title-text {
+    font-weight: bold;
+}
+
+.login-area {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.login-area b {
+    font-weight: bold;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background-color: var(--section-background);
+    padding: 16px;
+    border-bottom: 2px solid var(--accent);
+}
+
+.boards-header {
+    display: flex;
+    color: var(--title-text);
+    font-weight: bold;
+    font-size: 0.8rem;
+    height: 1.3rem;
+    align-items: center;
+}
+
+.boards-header__board-name {
+    width: 400px;
+    margin-left: 32px;
+}
+
+.board {
+    position: relative;
+    display: flex;
+    padding: 12px;
+    border-radius: 4px;
+    background-color: var(--foreground);
+    cursor: pointer;
+    text-decoration: none;
+    overflow: hidden;
+    transition: ease 100ms;
+    color: var(--body-text);
+}
+
+.board:hover {
+    background-color: var(--foreground-hover);
+}
+
+.board:hover .board-stripe::after {
+    transform: translateX(15px);
+    background-color: var(--foreground-hover);
+}
+
+.board:hover .board-stripe {
+    width: 25px;
+    color: var(--foreground-hover);
+}
+
+.board-stripe {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: 100ms ease;
+    align-items: center;
+    color: transparent;
+    display: inline-flex;
+    justify-content: center;
+    overflow: hidden;
+    padding-right: 5px;
+    width: 10px;
+}
+
+.board-stripe::before {
+    background-color: var(--accent);
+    border-radius: 4px 0 0 4px;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.board-stripe::after {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    background-color: var(--foreground);
+    border-radius: 4px 0 0 4px;
+    content: '';
+    left: 4px;
+    width: 100%;
+    will-change: transform;
+    transition: 100ms ease;
+}
+
+.board-header {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 400px;
+}
+
+.board-title {
+    color: var(--title-text);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.board-desc {
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+.board-activity {
+    font-size: 0.8rem;
+    gap: 0.2rem;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.board-activity__thread-title {
+    color: var(--body-text);
+    width: fit-content;
+}
+
+.board-activity__thread-title.link {
+    color: var(--link-text);
+}
+
+.board-activity__details {
+    display: flex;
+    gap: 0.2rem;
+}
