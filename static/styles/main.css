@@ -41,12 +41,14 @@ a {
 .button {
     font-weight: bold;
     background-color: var(--accent);
+    color: var(--body-text);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     border-radius: 100px;
     padding: 0.3rem 0.9rem;
+    font-size: 0.7rem;
     height: 1.2rem;
     transition: 100ms ease;
 }
