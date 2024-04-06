@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Ei pääsyä{% endblock %}
+{% block content %}
+<div class="app">
+    <div class="main-container">
+        <div class="nav-bar"><a href="/" class="link">Koti</a><span>/</span><span>Ei pääsyä</span></div>
+        <div class="title-bar">
+            <div class="title-text">TSOHA-Forum</div>
+            <div class="login-area">
+                <div class="login-area__name">Uloskirjauduttu</div>
+                <a href="#" class="button login-area__button">Kirjaudu sisään</a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="unauthorized">Ei oikeutta näyttää tätä sivua</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

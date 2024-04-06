@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='styles/reset.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='styles/main.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ url_for('static', filename='dist/jquery-3.7.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='dist/jquery.timeago.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='dist/timeago-locales.js') }}" type="text/javascript"></script>
+    <title>{% block title %}{% endblock %} - TSOHA-Forum</title>
+    {% endblock %}
+</head>
+
+<body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <script>
+        jQuery(document).ready(function () {
+            const locale = 'fi';
+            jQuery.timeago.settings.strings = {
+                ...jQuery.timeago.settings.strings,
+                ...timeago_locales[locale]
+            }
+            jQuery('time.timeago').timeago();
+        });
+    </script>
+</body>
+
+</html>

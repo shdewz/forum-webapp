@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}Koti{% endblock %}
+{% block content %}
+<div class="app">
+    <div class="main-container">
+        <div class="nav-bar">Koti</div>
+        <div class="title-bar">
+            <div class="title-text">TSOHA-Forum</div>
+            <div class="login-area">
+                <div class="login-area__name">Uloskirjauduttu</div>
+                <a href="#" class="button login-area__button">Kirjaudu sisään</a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="boards-header">
+                <div class="boards-header__board-name">Alueet</div>
+                <div class="boards-header__last-post">Viimeisin viesti</div>
+            </div>
+            {% for board in data %}
+            <div class="board" onclick="document.location='/boards/{{ board.id }}'">
+                <div class="board-stripe"></div>
+                <div class="board-header">
+                    <div class="board-title">{{ board.name }}</div>
+                    <div class="board-desc">{{ board.description }}</div>
+                </div>
+                <div class="board-activity">
+                    {% if board.message_id is not none %}
+                    <a href="/threads/{{ board.thread_id }}" class="board-activity__thread-title link">{{
+                        board.thread_title }}</a>
+                    <div class="board-activity__details">
+                        <div class="board-activity__details__user">{{ board.username }}</div>
+                        <div class="board-activity__details__sent_at"><time class="timeago" datetime="{{ board.sent_at }}">{{ board.sent_at }}</time></div>
+                    </div>
+                    {% else %}
+                    <div class="board-activity__thread-title">Ei viestejä</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

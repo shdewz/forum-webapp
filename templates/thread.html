@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}{{ data[0].thread_title }}{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link href="{{ url_for('static', filename='styles/thread.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+<div class="app">
+    <div class="main-container">
+        <div class="nav-bar"><a href="/" class="link">Koti</a><span>/</span><a href="/boards/{{ data[0].board_id }}"
+                class="link">{{ data[0].name }}</a><span>/</span><span>{{ data[0].thread_title }}</span></div>
+        <div class="title-bar">
+            <div class="title-container">
+                <div class="title-text">{{ data[0].thread_title }}</div>
+                <div class="started-at">aloitettu <time class="timeago" datetime="{{ data[0].sent_at }}">{{ data[0].sent_at }}</time></div>
+            </div>
+            <div class="login-area">
+                <div class="login-area__name">Uloskirjauduttu</div>
+                <a href="#" class="button login-area__button">Kirjaudu sisään</a>
+            </div>
+        </div>
+        <div class="content">
+            {% for message in data %}
+            <div class="message">
+                <div class="message-header">
+                    {% if message.op == True %}
+                    <div class="message-op">AP</div>
+                    {% endif %}
+                    <div class="message-username">{{ message.username }}</div>
+                    <div class="message-timestamp"><time class="timeago" datetime="{{ message.sent_at }}">{{ message.sent_at }}</time></div>
+                </div>
+                <div class="message-content">{{ message.content }}</div>
+            </div>
+            {% endfor %}
+            <div class="newmessage-area"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

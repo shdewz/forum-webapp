@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}{{ data[0].name }}{% endblock %}
+{% block content %}
+<div class="app">
+    <div class="main-container">
+        <div class="nav-bar"><a href="/" class="link">Koti</a><span>/</span><span>{{ data[0].name }}</span></div>
+        <div class="title-bar">
+            <div class="title-text">{{ data[0].name }}</div>
+            <div class="login-area">
+                <div class="login-area__name">Uloskirjauduttu</div>
+                <a href="#" class="button login-area__button">Kirjaudu sisään</a>
+            </div>
+        </div>
+        <div class="content">
+            {% if data[0].id is not none %}
+            <div class="boards-header">
+                <div class="boards-header__board-name">Ketjut</div>
+                <div class="boards-header__last-post">Viimeisin viesti</div>
+            </div>
+            {% for thread in data %}
+            <div class="board" onclick="document.location='/threads/{{ thread.id }}'">
+                <div class="board-stripe"></div>
+                <div class="board-header">
+                    <div class="board-title">{{ thread.title }}</div>
+                    <div class="board-desc">by {{ thread.author }}</div>
+                </div>
+                <div class="board-activity">
+                    {% if thread.message_id is not none %}
+                    <div class="board-activity__thread-title-thread">{{ thread.last_reply }}</div>
+                    <div class="board-activity__details">
+                        <div class="board-activity__details__sent_at"><time class="timeago" datetime="{{ thread.sent_at }}">{{ thread.sent_at }}</time></div>
+                    </div>
+                    {% else %}
+                    <div class="board-activity__thread-title">Nothing yet!</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="board-activity__thread-title">No threads yet!</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
