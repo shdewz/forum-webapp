@@ -8,8 +8,8 @@ CREATE TABLE boards (
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username text,
-    usergroup integer -- 0 = normal user, 1 = administrator
-    -- todo: add passwords
+    usergroup integer, -- 0 = normal user, 1 = administrator
+    password text
 );
 
 CREATE TABLE threads (
