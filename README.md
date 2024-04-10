@@ -24,6 +24,7 @@ Kloonaa repositorio ja luo juurikansioon esimerkin mukainen `.env`-tiedosto:
 
 ```dotenv
 DATABASE_URL=<tietokannan-osoite>
+SECRET=<secret-key>
 ```
 
 Aktivoi virtuaaliympäristö ja asenna riippuvuudet komennoilla
