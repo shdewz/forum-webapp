@@ -5,6 +5,7 @@
     --accent-hover: #7aa6f8;
     --foreground: #2e3338;
     --foreground-hover: #353841;
+    --foreground-focus: #52555f;
     --section-background: #22252a;
     --background: #17191c;
     --title-text: #fcfcfc;
@@ -12,6 +13,7 @@
     --faded-text: #bfc7d8;
     --link-text: #a6b7d9;
     --original-poster: #64ed82;
+    --error: #fc8585;
 }
 
 a {
@@ -21,6 +23,7 @@ a {
 
 .link {
     color: var(--link-text);
+    cursor: pointer;
 }
 
 .link:hover {
@@ -28,8 +31,15 @@ a {
 }
 
 .app {
+    padding: 48px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#content {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -230,4 +240,30 @@ a {
 .board-activity__details {
     display: flex;
     gap: 0.2rem;
+}
+
+.newmessage-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+hr {
+    width: 99%;
+    color: rgba(0,0,0,0);
+    border-top: 2px solid var(--foreground);
+}
+
+.submit-row {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.login-form-button {
+    border: none;
+    width: fit-content;
+    font-size: 0.7rem;
+    height: 1.7rem;
 }
