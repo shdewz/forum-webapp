@@ -24,9 +24,14 @@
 
 .message-header {
     display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+}
+
+.message-author {
+    display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 1.1rem;
 }
 
 .message-op {
@@ -46,4 +51,28 @@
     font-style: italic;
     font-size: 0.8rem;
     color: var(--faded-text);
+}
+
+.message-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--faded-text);
+}
+
+.login-form {
+    display: flex;
+    position: relative;
+}
+
+textarea {
+    padding: 0.6rem 1rem !important;
+    width: calc(100% - 2 * 0.6rem);
+    resize: none;
+    max-height: 10rem !important;
+    height: 1.4rem !important;
+    font-size: 1rem;
+    line-height: 1.4rem !important;
 }
