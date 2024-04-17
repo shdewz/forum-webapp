@@ -79,7 +79,7 @@ def logout():
 
 @app.route('/send', methods=['POST'])
 def send():
-    content = request.form['content']
+    content = request.form['message_content']
     thread_id = request.form['thread_id']
 
     if messages.send_message(thread_id, content):
