@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}Luo käyttäjä{% endblock %}
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='styles/login.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+<div class="app">
+    <div class="main-container">
+        <div class="nav-bar"><a href="/" class="link">Koti</a><span>/</span><span>Luo käyttäjä</span></div>
+        <div class="title-bar">
+            <div class="title-text">Luo uusi käyttäjä</div>
+        </div>
+        <div class="content">
+            {% if error %}
+                <div class="main-error">{{ error }}</div>
+            {% endif %}
+            <form action="/register" method="POST" class="login-form">
+                <div class="login-form-item">
+                    <div class="login-form-title">Tunnus<span class="form-title__error" id="username_length">3–16
+                            merkkiä</span></div>
+                    <input type="text" name="username" pattern=".{3,16}" id="username" required>
+                </div>
+                <div class="login-form-item">
+                    <div class="login-form-title">Salasana</div>
+                    <input type="password" name="password" id="password" required>
+                </div>
+                <div class="login-form-item">
+                    <div class="login-form-title">Anna salasana uudelleen</div>
+                    <input type="password" name="password-repeat" id="password_repeat" required>
+                </div>
+                <div class="submit-row">
+                    <input type="submit" value="Luo käyttäjä" class="button login-area__button login-form-button">
+                    <div id="nomatch">Salasanat eivät täsmää</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#password, #password_repeat').on('keyup', () => {
+        if ($('#password').val() == $('#password_repeat').val()) $('#nomatch').css('opacity', 0);
+        else $('#nomatch').css('opacity', 1);
+    });
+
+    $('#username').on('keyup', () => {
+        if ($('#username').val().length >= 3 && $('#username').val().length <= 16) $('#username_length').css('opacity', 0);
+        else $('#username_length').css('opacity', 1);
+    });
+</script>
+{% endblock %}

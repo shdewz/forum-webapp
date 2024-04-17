@@ -10,25 +10,50 @@
     gap: 4px;
 }
 
-.login-form-button {
-    width: fit-content;
-    margin-top: 8px;
-    font-size: 0.7rem;
-    height: 1.7rem;
-}
-
-input {
+input,
+textarea {
     border: none;
     height: 1.2rem;
+    line-height: 1rem;
     padding: 0.3rem 0.6rem;
     background-color: var(--foreground);
-    width: 30%;
     color: var(--body-text);
     border-radius: 4px;
     transition: 100ms ease background-color;
+    font-family: 'Noto Sans', 'Helvetica', 'Arial', sans-serif;
 }
 
-input:focus {
-    outline: 2px solid var(--foreground-hover);
+input {
+    width: 30%;
+}
+
+input:focus,
+textarea:focus {
+    outline: 2px solid var(--foreground-focus);
     background-color: var(--foreground-hover);
+}
+
+.register-link {
+    font-size: 0.8rem;
+}
+
+#nomatch {
+    font-size: 0.8rem;
+    color: var(--error);
+    opacity: 0;
+    transition: 100ms ease;
+}
+
+.form-title__error {
+    margin-left: 12px;
+    font-size: 0.8rem;
+    color: var(--error);
+    opacity: 0;
+    transition: 100ms ease;
+}
+
+.main-error {
+    font-size: 0.8rem;
+    color: var(--error);
+    margin-bottom: 12px;
 }
