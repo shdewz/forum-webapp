@@ -7,12 +7,12 @@
         <div class="title-bar">
             <div class="title-text">{{ data[0].name }}</div>
             <div class="login-area">
-                {% if session.username %}
-                    <div class="login-area__name">Kirjauduttu sisään nimellä <b>{{ session.username }}</b></div>
-                    <a href="/logout" class="button login-area__button">Kirjaudu ulos</a>
+                {% if session.user_id %}
+                <div class="login-area__name">Kirjauduttu sisään nimellä <b>{{ session.username }}</b></div>
+                <a href="/logout" class="button login-area__button">Kirjaudu ulos</a>
                 {% else %}
-                    <div class="login-area__name">Uloskirjauduttu</div>
-                    <a href="/login" class="button login-area__button">Kirjaudu sisään</a>
+                <div class="login-area__name">Uloskirjauduttu</div>
+                <a href="/login" class="button login-area__button">Kirjaudu sisään</a>
                 {% endif %}
             </div>
         </div>
@@ -33,16 +33,28 @@
                     {% if thread.message_id is not none %}
                     <div class="board-activity__thread-title-thread">{{ thread.last_reply }}</div>
                     <div class="board-activity__details">
-                        <div class="board-activity__details__sent_at"><time class="timeago" datetime="{{ thread.sent_at }}">{{ thread.sent_at }}</time></div>
+                        <div class="board-activity__details__sent_at"><time class="timeago"
+                                datetime="{{ thread.sent_at }}">{{ thread.sent_at }}</time></div>
                     </div>
                     {% else %}
-                    <div class="board-activity__thread-title">Nothing yet!</div>
+                    <div class="board-activity__thread-title">Ei viestejä</div>
                     {% endif %}
                 </div>
             </div>
             {% endfor %}
             {% else %}
-            <div class="board-activity__thread-title">No threads yet!</div>
+            <div class="board-activity__thread-title">Ei ketjuja</div>
+            {% endif %}
+            {% if session.user_id %}
+            <hr>
+            <div class="newmessage-area">
+                <form action="/new-thread" method="GET" class="login-form">
+                    <div class="submit-row">
+                        <input type="submit" value="Luo uusi ketju" class="button login-area__button login-form-button">
+                        <input type="hidden" name="board_id" value="{{ data[0].id }}">
+                    </div>
+                </form>
+            </div>
             {% endif %}
         </div>
     </div>
