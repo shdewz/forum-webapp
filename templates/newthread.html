@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}Uusi ketju{% endblock %}
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='styles/thread.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ url_for('static', filename='styles/login.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+<div class="app">
+    <div class="main-container">
+        <div class="nav-bar"><a href="/" class="link">Koti</a><span>/</span><span>Uusi ketju</span></div>
+        <div class="title-bar">
+            <div class="title-container">
+                <div class="title-text">Uusi ketju</div>
+            </div>
+            <div class="login-area">
+                {% if session.user_id %}
+                <div class="login-area__name">Kirjauduttu sisään nimellä <b>{{ session.username }}</b></div>
+                <a href="/logout" class="button login-area__button">Kirjaudu ulos</a>
+                {% else %}
+                <div class="login-area__name">Uloskirjauduttu</div>
+                <a href="/login" class="button login-area__button">Kirjaudu sisään</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="content">
+            {% if session.user_id %}
+            <div class="newmessage-area">
+                <form action="/threads/new" method="POST" class="login-form">
+                    <div class="login-form-item">
+                        <div class="login-form-title">Otsikko</div>
+                        <input type="text" name="title" required>
+                    </div>
+                    <div class="login-form-title">Aloitusviesti</div>
+                    <textarea id="message_content" name="message_content" placeholder="..." required
+                        oninput='this.style.height = "";this.style.height = "calc(" + this.scrollHeight + "px - 1rem)"'></textarea>
+                    <div class="submit-row">
+                        <input type="submit" value="Lähetä viesti" class="button login-area__button login-form-button">
+                        <input type="hidden" name="board_id" value="{{ board_id }}">
+                    </div>
+                </form>
+            </div>
+            {% else %}
+            <div class="main-error">Kirjaudu sisään luodaksesi uuden ketjun</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
