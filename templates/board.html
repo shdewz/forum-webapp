@@ -27,7 +27,7 @@
                 <div class="board-stripe"></div>
                 <div class="board-header">
                     <div class="board-title">{{ thread.title }}</div>
-                    <div class="board-desc">by {{ thread.author }}</div>
+                    <div class="board-desc">{{ thread.author }}</div>
                 </div>
                 <div class="board-activity">
                     {% if thread.message_id is not none %}
@@ -48,10 +48,10 @@
             {% if session.user_id %}
             <hr>
             <div class="newmessage-area">
-                <form action="/new-thread" method="GET" class="login-form">
+                <form action="/threads/new" method="GET" class="login-form">
                     <div class="submit-row">
                         <input type="submit" value="Luo uusi ketju" class="button login-area__button login-form-button">
-                        <input type="hidden" name="board_id" value="{{ data[0].id }}">
+                        <input type="hidden" name="board_id" value="{{ data[0].board_id }}">
                     </div>
                 </form>
             </div>
