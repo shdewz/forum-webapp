@@ -173,6 +173,7 @@ a {
     overflow: hidden;
     padding-right: 5px;
     width: 10px;
+    z-index: 0;
 }
 
 .board-stripe::before {
