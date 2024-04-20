@@ -1,5 +1,7 @@
 from db import db
 from sqlalchemy.sql import text
+import users
+
 
 def get_threads(board_id):
     sql = '''SELECT DISTINCT ON (threads.id)
@@ -10,5 +12,19 @@ def get_threads(board_id):
     data = result.fetchall()
     return data
 
-def add_thread(board_id, author, title, content):
-    pass
+
+def add_thread(board_id, title, content):
+    user_id = users.user_id()
+    if user_id == 0:
+        return False
+    if len(title) > 32 or len(content) > 512:
+        return False
+    sql = 'INSERT INTO threads (board_id, title, author_id) VALUES (:board_id, :title, :user_id) RETURNING id'
+    result = db.session.execute(
+        text(sql), {'board_id': board_id, 'title': title, 'user_id': user_id})
+    thread_id = result.fetchone()[0]
+    db.session.execute(
+        text('INSERT INTO messages (thread_id, content, author_id, sent_at) VALUES (:thread_id, :content, :user_id, NOW())'),
+        {'thread_id': thread_id, 'content': content, 'user_id': user_id})
+    db.session.commit()
+    return thread_id
