@@ -86,3 +86,19 @@ def send():
         return redirect(session['url'])
     else:
         return redirect(session['url'])
+    
+
+@app.route('/threads/new', methods=['GET', 'POST'])
+def new_thread():
+    if request.method == 'GET':
+        board_id = request.args.get('board_id', default = 1, type = int)
+        return render_template('newthread.html', board_id=board_id)
+    if request.method == 'POST':
+        board_id = request.form['board_id']
+        title = request.form['title']
+        content = request.form['message_content']
+        thread_id = threads.add_thread(board_id, title, content)
+        if thread_id:
+            return thread(thread_id)
+        else:
+            return redirect(session['url'])
