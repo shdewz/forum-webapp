@@ -29,22 +29,30 @@
         <div class="content">
             {% for message in data %}
             <div class="message">
-                <div class="message-header">
-                    <div class="message-author">
-                        {% if message.op == True %}
-                        <div class="message-op">AP</div>
-                        {% endif %}
-                        <div class="message-username">{{ message.username }}</div>
-                        <div class="message-timestamp"><time class="timeago" datetime="{{ message.sent_at }}">{{
-                                message.sent_at }}</time></div>
+                {% if loop.index == 1 %}
+                <div class="board-stripe"></div>
+                {% endif %}
+                <div class="message-body">
+                    <div class="message-header">
+                        <div class="message-author">
+                            {% if message.op == True %}
+                            <div class="message-op">AP</div>
+                            {% endif %}
+                            <div class="message-username">{{ message.username }}</div>
+                            <div class="message-timestamp"><time class="timeago" datetime="{{ message.sent_at }}">{{
+                                    message.sent_at }}</time></div>
+                        </div>
+                        <div class="message-controls">
+                            {% if message.author_id == session.user_id and loop.index > 1 %}
+                            <div class="message-control message-delete link" data-message-id="{{ message.id }}">Poista viesti</div>
+                            {% endif %}
+                            {% if message.author_id == session.user_id and loop.index == 1 %}
+                            <div class="message-control thread-delete link" data-thread-id="{{ data[0].thread_id }}">Poista ketju</div>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="message-controls">
-                        {% if message.author_id == session.user_id %}
-                        <div class="message-control message-delete link" data-message-id="{{ message.id }}">Poista viesti</div>
-                        {% endif %}
-                    </div>
+                    <div class="message-content">{{ message.content }}</div>
                 </div>
-                <div class="message-content">{{ message.content }}</div>
             </div>
             {% endfor %}
             {% if session.user_id %}
@@ -52,7 +60,7 @@
             <div class="newmessage-area">
                 <div class="newmessage-title">Uusi viesti</div>
                 <form action="/send" method="POST" class="login-form">
-                    <textarea id="message_content" name="message_content" placeholder="..."
+                    <textarea id="message_content" name="message_content" placeholder="..." required
                         oninput='this.style.height = "";this.style.height = "calc(" + this.scrollHeight + "px - 1rem)"'></textarea>
                     <div class="submit-row">
                         <input type="submit" value="Lähetä viesti" class="button login-area__button login-form-button">
