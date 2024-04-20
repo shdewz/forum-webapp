@@ -23,6 +23,8 @@ def send_message(thread_id, content):
     user_id = users.user_id()
     if user_id == 0:
         return False
+    if len(content) > 512:
+        return False
     sql = 'INSERT INTO messages (thread_id, content, author_id, sent_at) VALUES (:thread_id, :content, :user_id, NOW())'
     db.session.execute(
         text(sql), {'thread_id': thread_id, 'content': content, 'user_id': user_id})
