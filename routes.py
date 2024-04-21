@@ -5,7 +5,6 @@ import threads
 import messages
 import users
 from flask import redirect, render_template, request, session, url_for
-from sqlalchemy.sql import text
 
 
 @app.route('/')
@@ -24,13 +23,19 @@ def board(board_id):
     return render_template('board.html', data=threads_)
 
 
-@app.route('/threads/<int:thread_id>')
+@app.route('/threads/<int:thread_id>', methods=['GET', 'DELETE'])
 def thread(thread_id):
-    messages_ = messages.get_messages(thread_id)
-    if len(messages_) == 0:
-        return render_template('unauthorized.html')
-    session['url'] = url_for('thread', thread_id=thread_id)
-    return render_template('thread.html', data=messages_)
+    if request.method == 'GET':
+        messages_ = messages.get_messages(thread_id)
+        if len(messages_) == 0:
+            return render_template('unauthorized.html')
+        session['url'] = url_for('thread', thread_id=thread_id)
+        return render_template('thread.html', data=messages_)
+    if request.method == 'DELETE':
+        if threads.delete_thread(thread_id):
+            return '200'
+        else:
+            return '403'
 
 
 @app.route('/messages/<int:message_id>', methods=['DELETE'])
@@ -99,6 +104,6 @@ def new_thread():
         content = request.form['message_content']
         thread_id = threads.add_thread(board_id, title, content)
         if thread_id:
-            return thread(thread_id)
+            return redirect(f'/threads/{thread_id}')
         else:
             return redirect(session['url'])
