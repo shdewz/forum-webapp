@@ -28,3 +28,25 @@ def add_thread(board_id, title, content):
         {'thread_id': thread_id, 'content': content, 'user_id': user_id})
     db.session.commit()
     return thread_id
+
+
+def get_thread(thread_id):
+    sql = '''SELECT * FROM threads WHERE id = :thread_id'''
+    result = db.session.execute(text(sql), {'thread_id': thread_id})
+    data = result.fetchone()
+    return data
+
+
+def delete_thread(thread_id):
+    user_id = users.user_id()
+    if user_id == 0:
+        return False
+    thread = get_thread(thread_id)
+    if user_id != thread.author_id:
+        return False
+    sql_m = 'DELETE FROM messages WHERE thread_id = :thread_id'
+    db.session.execute(text(sql_m), {'thread_id': thread_id})
+    sql = 'DELETE FROM threads WHERE id = :thread_id AND author_id = :user_id'
+    db.session.execute(text(sql), {'thread_id': thread_id, 'user_id': user_id})
+    db.session.commit()
+    return True
