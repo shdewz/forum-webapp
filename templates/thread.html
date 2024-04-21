@@ -27,6 +27,7 @@
             </div>
         </div>
         <div class="content">
+            <div class="main-error" id="thread_error" style="display: none;"></div>
             {% for message in data %}
             <div class="message">
                 {% if loop.index == 1 %}
@@ -44,10 +45,12 @@
                         </div>
                         <div class="message-controls">
                             {% if message.author_id == session.user_id and loop.index > 1 %}
-                            <div class="message-control message-delete link" data-message-id="{{ message.id }}">Poista viesti</div>
+                            <div class="message-control message-delete link" data-message-id="{{ message.id }}">Poista
+                                viesti</div>
                             {% endif %}
                             {% if message.author_id == session.user_id and loop.index == 1 %}
-                            <div class="message-control thread-delete link" data-thread-id="{{ data[0].thread_id }}">Poista ketju</div>
+                            <div class="message-control thread-delete link" data-thread-id="{{ data[0].thread_id }}">
+                                Poista ketju</div>
                             {% endif %}
                         </div>
                     </div>
@@ -77,7 +80,30 @@
     $('.message-delete').click(function (event) {
         let message_id = $(this).data('messageId');
         let url = `/messages/${message_id}`;
-        $.ajax({ url: url, type: 'DELETE', }).done((data) => { location.reload(); });
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function (result) {
+                if (result == '200') {
+                    $('#thread_error').html('').css('display', 'none');
+                    location.reload();
+                }
+                else $('#thread_error').html('Ketjun poistaminen ei onnistunut').css('display', 'block');
+            }
+        });
+    });
+
+    $('.thread-delete').click(function (event) {
+        let thread_id = $(this).data('threadId');
+        let url = `/threads/${thread_id}`;
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function (result) {
+                if (result == '200') location.href = '/boards/{{ data[0].board_id }}';
+                else $('#thread_error').html('Ketjun poistaminen ei onnistunut').css('display', 'block');
+            }
+        });
     });
 </script>
 {% endblock %}
