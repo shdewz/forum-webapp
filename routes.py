@@ -4,7 +4,7 @@ import boards
 import threads
 import messages
 import users
-from flask import redirect, render_template, request, session, url_for
+from flask import redirect, render_template, request, session, url_for, abort
 
 
 @app.route('/')
@@ -84,6 +84,8 @@ def logout():
 
 @app.route('/send', methods=['POST'])
 def send():
+    if session['csrf_token'] != request.form['csrf_token']:
+        abort(403)
     content = request.form['message_content']
     thread_id = request.form['thread_id']
 
@@ -99,6 +101,8 @@ def new_thread():
         board_id = request.args.get('board_id', default = 1, type = int)
         return render_template('newthread.html', board_id=board_id)
     if request.method == 'POST':
+        if session['csrf_token'] != request.form['csrf_token']:
+            abort(403)
         board_id = request.form['board_id']
         title = request.form['title']
         content = request.form['message_content']

@@ -62,12 +62,13 @@
             <hr>
             <div class="newmessage-area">
                 <div class="newmessage-title">Uusi viesti</div>
-                <form action="/send" method="POST" class="login-form">
+                <form action="/send" method="POST" class="login-form" onsubmit="return check(this)">
                     <textarea id="message_content" name="message_content" placeholder="..." required
                         oninput='this.style.height = "";this.style.height = "calc(" + this.scrollHeight + "px - 1rem)"'></textarea>
                     <div class="submit-row">
                         <input type="submit" value="Lähetä viesti" class="button login-area__button login-form-button">
                         <input type="hidden" name="thread_id" value="{{ data[0].thread_id }}">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                     </div>
                 </form>
             </div>
@@ -105,5 +106,14 @@
             }
         });
     });
+
+    function check(form) {
+    if (form.message_content.value.length > 512) {
+        $('#thread_error').html('Viesti on liian pitkä').css('display', 'block');
+        return false;
+    }
+    $('#thread_error').html('').css('display', 'none');
+    return true;
+}
 </script>
 {% endblock %}

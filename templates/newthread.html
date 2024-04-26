@@ -24,9 +24,10 @@
             </div>
         </div>
         <div class="content">
+            <div class="main-error" id="thread_error" style="display: none;"></div>
             {% if session.user_id %}
             <div class="newmessage-area">
-                <form action="/threads/new" method="POST" class="login-form">
+                <form action="/threads/new" method="POST" class="login-form" onsubmit="return check(this)">
                     <div class="login-form-item">
                         <div class="login-form-title">Otsikko</div>
                         <input type="text" name="title" required>
@@ -46,4 +47,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    function check(form) {
+        if (form.title.value.length > 32) {
+            $('#thread_error').html('Otsikko on liian pitkä').css('display', 'block');
+            return false;
+        }
+        if (form.message_content.value.length > 512) {
+            $('#thread_error').html('Viesti on liian pitkä').css('display', 'block');
+            return false;
+        }
+        $('#thread_error').html('').css('display', 'none');
+        return true;
+    }
+</script>
 {% endblock %}

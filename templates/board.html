@@ -52,6 +52,7 @@
                     <div class="submit-row">
                         <input type="submit" value="Luo uusi ketju" class="button login-area__button login-form-button">
                         <input type="hidden" name="board_id" value="{{ data[0].board_id }}">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                     </div>
                 </form>
             </div>
