@@ -10,6 +10,12 @@
     gap: 4px;
 }
 
+.login-form-item__inline {
+    display: flex;
+    justify-content: flex-start;
+    gap: 4px;
+}
+
 input,
 textarea {
     border: none;
@@ -25,6 +31,13 @@ textarea {
 
 input {
     width: 30%;
+}
+
+.checkbox {
+    height: 1.2rem;
+    width: 1.2rem;
+    line-height: 1rem;
+    transform: translateY(-4px);
 }
 
 input:focus,

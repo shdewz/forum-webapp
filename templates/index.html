@@ -42,6 +42,23 @@
                 </div>
             </div>
             {% endfor %}
+            {% if session.admin %}
+            <hr>
+            <div class="newmessage-area">
+                <form action="/boards/new" method="GET" class="login-form">
+                    <div class="submit-row">
+                        <input type="submit" value="Luo uusi alue" class="button login-area__button login-form-button">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </div>
+                </form>
+                <form action="/permissions/add" method="GET" class="login-form">
+                    <div class="submit-row">
+                        <input type="submit" value="Lisää oikeuksia" class="button login-area__button login-form-button">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </div>
+                </form>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>

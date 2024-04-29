@@ -1,5 +1,6 @@
 from db import db
 from sqlalchemy.sql import text
+from flask import session
 import users
 
 def get_boards():
@@ -16,5 +17,14 @@ def get_boards():
     data = result.fetchall()
     return data
 
-def add_board(author, name, public, permissions):
-    pass
+def add_board(title, description, private):
+    if users.user_id() == 0 or not session['admin']:
+        return False
+    if len(title) > 24 or len(description) > 48:
+        return False
+    sql = 'INSERT INTO boards (name, description, is_public) VALUES (:name, :description, :is_public) RETURNING id'
+    result = db.session.execute(
+        text(sql), {'name': title, 'description': description, 'is_public': 'TRUE' if not private else 'FALSE'})
+    thread_id = result.fetchone()[0]
+    db.session.commit()
+    return thread_id

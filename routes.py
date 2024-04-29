@@ -93,12 +93,12 @@ def send():
         return redirect(session['url'])
     else:
         return redirect(session['url'])
-    
+
 
 @app.route('/threads/new', methods=['GET', 'POST'])
 def new_thread():
     if request.method == 'GET':
-        board_id = request.args.get('board_id', default = 1, type = int)
+        board_id = request.args.get('board_id', default=1, type=int)
         return render_template('newthread.html', board_id=board_id)
     if request.method == 'POST':
         if session['csrf_token'] != request.form['csrf_token']:
@@ -109,5 +109,23 @@ def new_thread():
         thread_id = threads.add_thread(board_id, title, content)
         if thread_id:
             return redirect(f'/threads/{thread_id}')
+        return redirect(session['url'])
+
+
+@app.route('/boards/new', methods=['GET', 'POST'])
+def new_board():
+    if request.method == 'GET':
+        if (session['admin']):
+            return render_template('newboard.html')
         else:
-            return redirect(session['url'])
+            abort(403)
+    if request.method == 'POST':
+        if session['csrf_token'] != request.form['csrf_token'] or not session['admin']:
+            abort(403)
+        title = request.form['title']
+        description = request.form['description']
+        private = request.form.get('private', False)
+        board_id = boards.add_board(title, description, private)
+        if board_id:
+            return redirect(f'/boards/{board_id}')
+        return redirect(session['url'])

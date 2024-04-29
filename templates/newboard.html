@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block title %}Uusi alue{% endblock %}
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='styles/thread.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ url_for('static', filename='styles/login.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+<div class="app">
+    <div class="main-container">
+        <div class="nav-bar"><a href="/" class="link">Koti</a><span>/</span><span>Uusi alue</span></div>
+        <div class="title-bar">
+            <div class="title-container">
+                <div class="title-text">Uusi alue</div>
+            </div>
+            <div class="login-area">
+                {% if session.user_id %}
+                <div class="login-area__name">Kirjauduttu sisään nimellä <b>{{ session.username }}</b></div>
+                <a href="/logout" class="button login-area__button">Kirjaudu ulos</a>
+                {% else %}
+                <div class="login-area__name">Uloskirjauduttu</div>
+                <a href="/login" class="button login-area__button">Kirjaudu sisään</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="content">
+            <div class="main-error" id="thread_error" style="display: none;"></div>
+            {% if session.user_id %}
+            <div class="newmessage-area">
+                <form action="/boards/new" method="POST" class="login-form" onsubmit="return check(this)">
+                    <div class="login-form-item">
+                        <div class="login-form-title">Otsikko</div>
+                        <input type="text" name="title" required>
+                    </div>
+                    <div class="login-form-item">
+                        <div class="login-form-title">Kuvaus</div>
+                        <input type="text" name="description" required>
+                    </div>
+                    <div class="login-form-item__inline">
+                        <input type="checkbox" name="private" class="checkbox">
+                        <div class="login-form-title">Salainen alue</div>
+                    </div>
+                    <div class="submit-row">
+                        <input type="submit" value="Luo ketju" class="button login-area__button login-form-button">
+                        <input type="hidden" name="board_id" value="{{ board_id }}">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </div>
+                </form>
+            </div>
+            {% else %}
+            <div class="main-error">Kirjaudu sisään luodaksesi uuden ketjun</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function check(form) {
+        if (form.title.value.length > 24) {
+            $('#thread_error').html('Otsikko on liian pitkä').css('display', 'block');
+            return false;
+        }
+        if (form.description.value.length > 48) {
+            $('#thread_error').html('Kuvaus on liian pitkä').css('display', 'block');
+            return false;
+        }
+        $('#thread_error').html('').css('display', 'none');
+        return true;
+    }
+</script>
+{% endblock %}
