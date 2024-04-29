@@ -13,8 +13,9 @@ Sovelluksessa näkyy eri aiheisia keskustelualueita, sisältäen viesteistä koo
 - [x] Käyttäjä voi kirjoittaa uuden viestin olemassa olevaan ketjuun
 - [x] Käyttäjä voi poistaa lähettämänsä viestin tai ketjun
 - [ ] Käyttäjä voi etsiä kaikki viestit, joiden osana on annettu sana
-- [ ] Ylläpitäjä voi lisätä ja poistaa keskustelualueita
-- [ ] Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on pääsy alueelle
+- [x] Ylläpitäjä voi lisätä uusia keskustelualueita
+- [x] Ylläpitäjä voi luoda salaisen alueen
+  - [ ] Ylläpitäjä voi määrittää, kenellä on pääsy alueelle
   - [x] Salaiset alueet ovat oletuksena piilossa
 - [x] Sovellus on tyylitelty
 
