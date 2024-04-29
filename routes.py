@@ -68,9 +68,10 @@ def register():
         username = request.form['username']
         password = request.form['password']
         password_repeat = request.form['password-repeat']
+        is_admin = request.form.get('admin', False)
         if password != password_repeat:
             return render_template('register.html', error='Salasanat eivät täsmää')
-        if users.register(username, password):
+        if users.register(username, password, is_admin):
             return redirect(session['url'])
         else:
             return render_template('register.html', error='Käyttäjän luonti ei onnistunut')

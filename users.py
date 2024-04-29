@@ -27,8 +27,7 @@ def login(username, password):
             return False
 
 
-def register(username, password):
-    is_admin = False
+def register(username, password, is_admin):
     hash_value = generate_password_hash(password)
     try:
         sql = 'INSERT INTO users (username, password, is_admin) VALUES (:username, :password, :is_admin)'
