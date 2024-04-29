@@ -11,7 +11,7 @@ def user_id():
 
 
 def login(username, password):
-    sql = 'SELECT id, username, password FROM users WHERE username=:username'
+    sql = 'SELECT id, username, password, is_admin FROM users WHERE username=:username'
     result = db.session.execute(text(sql), {'username': username})
     user = result.fetchone()
     if not user:
@@ -20,6 +20,7 @@ def login(username, password):
         if check_password_hash(user.password, password):
             session['user_id'] = user.id
             session['username'] = user.username
+            session['admin'] = user.is_admin
             session['csrf_token'] = secrets.token_hex(16)
             return True
         else:
@@ -42,3 +43,4 @@ def register(username, password):
 def logout():
     del session['user_id']
     del session['username']
+    del session['admin']
