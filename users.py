@@ -27,11 +27,12 @@ def login(username, password):
 
 
 def register(username, password):
+    is_admin = False
     hash_value = generate_password_hash(password)
     try:
-        sql = 'INSERT INTO users (username, password, usergroup) VALUES (:username, :password, 0)'
+        sql = 'INSERT INTO users (username, password, is_admin) VALUES (:username, :password, :is_admin)'
         db.session.execute(
-            text(sql), {'username': username, 'password': hash_value})
+            text(sql), {'username': username, 'password': hash_value, 'is_admin': 'TRUE' if is_admin else 'FALSE'})
         db.session.commit()
     except:
         return False

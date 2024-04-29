@@ -8,7 +8,7 @@ CREATE TABLE boards (
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE,
-    usergroup INTEGER, -- 0 = normal user, 1 = administrator
+    is_admin BOOLEAN,
     password TEXT
 );
 
@@ -41,8 +41,8 @@ INSERT INTO boards (name, description, is_public) VALUES ('Ohjelmointi', 'Kaikki
 INSERT INTO boards (name, description, is_public) VALUES ('Offtopic', 'Muu keskustelu', true);
 INSERT INTO boards (name, description, is_public) VALUES ('Salainen alue', 'Shh!', false);
 
-INSERT INTO users (username, usergroup) VALUES ('Admin', 1);
-INSERT INTO users (username, usergroup) VALUES ('Käyttäjä 2', 0);
+INSERT INTO users (username, is_admin) VALUES ('Admin', TRUE);
+INSERT INTO users (username, is_admin) VALUES ('Käyttäjä 2', FALSE);
 
 INSERT INTO threads (board_id, title, author_id) VALUES (1, 'Ensimmäinen ketju!', 1);
 INSERT INTO threads (board_id, title, author_id) VALUES (1, 'Toinen ketju', 1);

@@ -4,7 +4,7 @@ import users
 
 
 def get_messages(thread_id):
-    sql = '''SELECT m.id, b.id AS board_id, b.name, m.thread_id, t.title AS thread_title, m.content, m.author_id, m.sent_at, u.id AS user_id, u.username, u.usergroup, m.author_id = t.author_id AS op
+    sql = '''SELECT m.id, b.id AS board_id, b.name, m.thread_id, t.title AS thread_title, m.content, m.author_id, m.sent_at, u.id AS user_id, u.username, u.is_admin, m.author_id = t.author_id AS op
              FROM messages m LEFT JOIN users u ON u.id = m.author_id LEFT JOIN threads t ON t.id = m.thread_id LEFT JOIN boards b ON b.id = t.board_id
              WHERE m.thread_id = :thread_id ORDER BY sent_at ASC'''
     result = db.session.execute(text(sql), {'thread_id': thread_id})
