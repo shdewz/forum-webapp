@@ -10,6 +10,13 @@ def user_id():
     return session.get('user_id', 0)
 
 
+def find_user(username):
+    sql = 'SELECT id, username FROM users WHERE username=:username'
+    result = db.session.execute(text(sql), {'username': username})
+    user = result.fetchone()
+    return user
+
+
 def login(username, password):
     sql = 'SELECT id, username, password, is_admin FROM users WHERE username=:username'
     result = db.session.execute(text(sql), {'username': username})

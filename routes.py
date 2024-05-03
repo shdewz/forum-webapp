@@ -4,6 +4,7 @@ import boards
 import threads
 import messages
 import users
+import permissions
 from flask import redirect, render_template, request, session, url_for, abort
 
 
@@ -130,3 +131,22 @@ def new_board():
         if board_id:
             return redirect(f'/boards/{board_id}')
         return redirect(session['url'])
+    
+
+@app.route('/permissions/add', methods=['GET', 'POST'])
+def add_permissions():
+    if request.method == 'GET':
+        if (session['admin']):
+            return render_template('permissions.html', status=False)
+        else:
+            abort(403)
+    if request.method == 'POST':
+        if session['csrf_token'] != request.form['csrf_token'] or not session['admin']:
+            abort(403)
+        board_id = request.form['board_id']
+        username = request.form['username']
+        user = permissions.add_permissions(board_id, username)
+        if user:
+            return render_template('permissions.html', status=f'Lisätty käyttäjä {user.username} (id {user.id}) alueelle {board_id}')
+        else:
+            return render_template('permissions.html', status='error')

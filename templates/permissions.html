@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}Lisää oikeuksia{% endblock %}
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='styles/thread.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ url_for('static', filename='styles/login.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+<div class="app">
+    <div class="main-container">
+        <div class="nav-bar"><a href="/" class="link">Koti</a><span>/</span><span>Lisää oikeuksia</span></div>
+        <div class="title-bar">
+            <div class="title-container">
+                <div class="title-text">Lisää oikeuksia</div>
+            </div>
+            <div class="login-area">
+                {% if session.user_id %}
+                <div class="login-area__name">Kirjauduttu sisään nimellä <b>{{ session.username }}</b></div>
+                <a href="/logout" class="button login-area__button">Kirjaudu ulos</a>
+                {% else %}
+                <div class="login-area__name">Uloskirjauduttu</div>
+                <a href="/login" class="button login-area__button">Kirjaudu sisään</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="content">
+            {% if status %}
+            <div class="main-error" id="thread_error">
+                {% if status == 'error' %}Virhe oikeuksien lisäämisessä{% else %}{{ status }}{% endif %}
+            </div>
+            {% endif %}
+            {% if session.user_id %}
+            <div class="newmessage-area">
+                <form action="/permissions/add" method="POST" class="login-form">
+                    <div class="login-form-item">
+                        <div class="login-form-title">Alueen numero</div>
+                        <input type="text" name="board_id" required>
+                    </div>
+                    <div class="login-form-item">
+                        <div class="login-form-title">Käyttäjänimi</div>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="submit-row">
+                        <input type="submit" value="Lisää oikeudet" class="button login-area__button login-form-button">
+                        <input type="hidden" name="board_id" value="{{ board_id }}">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </div>
+                </form>
+            </div>
+            {% else %}
+            <div class="main-error">Kirjaudu sisään lisätäksesi oikeuksia</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
