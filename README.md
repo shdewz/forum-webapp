@@ -12,7 +12,7 @@ Sovelluksessa näkyy eri aiheisia keskustelualueita, sisältäen viesteistä koo
 - [x] Käyttäjä voi luoda alueelle uuden ketjun antamalla ketjun otsikon ja aloitusviestin sisällön
 - [x] Käyttäjä voi kirjoittaa uuden viestin olemassa olevaan ketjuun
 - [x] Käyttäjä voi poistaa lähettämänsä viestin tai ketjun
-- [ ] Käyttäjä voi etsiä kaikki viestit, joiden osana on annettu sana
+- [x] Käyttäjä voi etsiä kaikki viestit, joiden osana on annettu sana
 - [x] Ylläpitäjä voi lisätä uusia keskustelualueita
 - [x] Ylläpitäjä voi luoda salaisen alueen
   - [x] Ylläpitäjä voi määrittää, kenellä on pääsy alueelle
