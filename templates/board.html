@@ -59,5 +59,13 @@
             {% endif %}
         </div>
     </div>
+    <div class="search">
+        <form action="/search" method="POST" class="login-form">
+            <div class="inline-search">
+                <input type="text" name="search_string" class="searchbar" placeholder="Hae viestejä..." required>
+                <input type="submit" value="Hae" class="button login-area__button login-form-button">
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

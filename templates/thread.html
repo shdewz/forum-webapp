@@ -33,7 +33,7 @@
                 {% if loop.index == 1 %}
                 <div class="board-stripe"></div>
                 {% endif %}
-                <div class="message-body">
+                <div class="message-body" id="message_{{ message.id }}">
                     <div class="message-header">
                         <div class="message-author">
                             {% if message.op == True %}

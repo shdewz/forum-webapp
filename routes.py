@@ -1,5 +1,6 @@
 from app import app
 from db import db
+from sqlalchemy.sql import text
 import boards
 import threads
 import messages
@@ -150,3 +151,19 @@ def add_permissions():
             return render_template('permissions.html', status=f'Lisätty käyttäjä {user.username} (id {user.id}) alueelle {board_id}')
         else:
             return render_template('permissions.html', status='error')
+        
+
+@app.route('/search', methods=['POST'])
+def search():
+    search_string = f'%{request.form['search_string']}%'
+    sql = '''SELECT messages.id, messages.content, users.username, threads.id AS thread_id, threads.title AS thread_title, messages.sent_at FROM messages
+             LEFT JOIN users ON users.id = messages.author_id
+             LEFT JOIN threads ON threads.id = messages.thread_id
+             LEFT JOIN boards ON boards.id = threads.board_id
+             LEFT JOIN users c_user ON c_user.id = :user_id
+             LEFT JOIN permissions ON permissions.user_id = :user_id AND permissions.board_id = boards.id
+             WHERE (boards.is_public = true OR c_user.is_admin = true OR permissions.user_id IS NOT NULL) AND UPPER(messages.content) LIKE UPPER(:search)
+             ORDER BY messages.sent_at DESC'''
+    result = db.session.execute(text(sql), {'user_id': users.user_id(), 'search': search_string})
+    data = result.fetchall()
+    return render_template('search.html', results=data)

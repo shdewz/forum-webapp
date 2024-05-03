@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}Haun tulokset{% endblock %}
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='styles/thread.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ url_for('static', filename='styles/login.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+<div class="app">
+    <div class="main-container">
+        <div class="nav-bar"><a href="/" class="link">Koti</a><span>/</span><span>Viestihaku</span></div>
+        <div class="title-bar">
+            <div class="title-container">
+                <div class="title-text">Haun tulokset</div>
+            </div>
+            <div class="login-area">
+                {% if session.user_id %}
+                <div class="login-area__name">Kirjauduttu sisään nimellä <b>{{ session.username }}</b></div>
+                <a href="/logout" class="button login-area__button">Kirjaudu ulos</a>
+                {% else %}
+                <div class="login-area__name">Uloskirjauduttu</div>
+                <a href="/login" class="button login-area__button">Kirjaudu sisään</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="content">
+            {% if not results %}
+            <div class="main-error" id="thread_error">Ei tuloksia</div>
+            {% else %}
+            {% for message in results %}
+            <div class="message">
+                <div class="message-body">
+                    <div class="message-header">
+                        <div class="message-author">
+                            <div class="message-username">{{ message.username }}</div>
+                            <div class="message-timestamp"><time class="timeago" datetime="{{ message.sent_at }}">{{
+                                    message.sent_at }}</time>, ketjussa {{ message.thread_title }}</div>
+                        </div>
+                        <div class="message-controls">
+                            <a href="/threads/{{ message.thread_id }}#message_{{ message.id }}" class="message-control link"">Siirry viestiin</a>
+                        </div>
+                    </div>
+                    <div class="message-content">{{ message.content }}</div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>console.log('{{ results }}')</script>
+{% endblock %}
